@@ -1,6 +1,6 @@
 # HP Elite x2 1012 G2 Hackintosh
 
-OpenCore configuration for the HP Elite x2 1012 G2, maintained for macOS Ventura 13.6 and a direct upgrade to macOS Tahoe 26.6.2 (25G83).
+OpenCore configuration for the HP Elite x2 1012 G2, maintained for macOS Ventura 13.6 and macOS Tahoe 26.6.2 (25G83). The Tahoe profile below was exported from the EFI System Partition after physical-machine validation on 2026-08-25.
 
 ## Hardware
 
@@ -15,17 +15,23 @@ OpenCore configuration for the HP Elite x2 1012 G2, maintained for macOS Ventura
 
 | Feature | Ventura 13.6 | Tahoe 26.6.2 |
 | --- | --- | --- |
-| Boot / graphics acceleration | Tested | Upgrade pending final hardware test |
-| Alps touchpad 1–4 finger gestures | Tested | Pending final hardware test |
+| Boot / Intel HD 620 acceleration | Tested | Tested |
+| Alps touchpad 1–4 finger gestures | Tested | Tested, including after sleep |
 | Broadcom Wi-Fi | Tested | Requires OCLP-CustoMac Modern Wi-Fi root patch |
-| AirDrop / AWDL | Tested on Ventura | Must be tested after the Wi-Fi root patch |
-| Bluetooth | Tested | Pending final hardware test |
-| Sleep / wake | Short test passed after AlpsHID fix | Must pass 5-minute and 30-minute tests |
+| AirDrop / AWDL | Tested on Ventura | AWDL active; two-way transfer still needs per-install validation |
+| Bluetooth | Tested | Tested |
+| Internal speakers / volume keys | Tested | Tested |
+| Brightness keys / keyboard reconnect | Tested | Tested with the native F3/F4 map |
+| Sleep / wake / native wake lock | Short test passed after AlpsHID fix | Tested; immediate password lock restored |
+| Shutdown / reboot | Tested | Tested with Tahoe HID termination guards |
 | Thunderbolt PCIe tunnelling | Disabled | Disabled |
-| USB-C USB / charging / DisplayPort Alt Mode | Separate from disabled NHI; test per device | Pending final hardware test |
+| USB-C USB / charging / DisplayPort Alt Mode | Separate from disabled NHI; test per device | Test per adapter; do not hot-unplug a true TB3 device |
+| Keyboard wake | Power-button wake recommended | Not enabled; VoodooPS2 disables the PS/2 IRQ during sleep |
 | Camera | Not enumerated | Not fixed by this EFI |
 
-Thunderbolt NHI is intentionally disabled in `DeviceProperties` because `IOThunderboltFamily 9.3.3` caused a reproducible Ventura kernel panic. This profile prioritizes a stable upgrade over Thunderbolt PCIe tunnelling.
+Thunderbolt NHI is intentionally hidden in `DeviceProperties` and `SSDT-TBHP.aml` is disabled because `IOThunderboltFamily 9.3.3` caused reproducible page-fault panics on both Ventura and Tahoe. The current injection only applies to devices present during boot, so a true TB3 controller appearing later can still trigger the Apple driver; see [Docs/Thunderbolt.md](Docs/Thunderbolt.md) before connecting or removing a TB3 device.
+
+![Tahoe 26.6.2 validation snapshot](Docs/Images/Tahoe-26.6.2-stable-20260825.png)
 
 ## Before using this EFI
 
@@ -44,7 +50,7 @@ Back up the entire EFI System Partition and keep a bootable recovery USB before 
 
 See [Docs/Tahoe-26.6.2.md](Docs/Tahoe-26.6.2.md) for the exact transition strategy, post-install Wi-Fi patch, validation gates, known limitations, and rollback boundaries.
 
-The bundled EFI is a transition profile: it boots the existing Ventura installation and carries the Tahoe-specific Broadcom compatibility path. Tahoe support must still be confirmed on the physical machine after installation and root patching.
+The bundled EFI now reflects the physically tested Tahoe installation. Machine-specific PlatformInfo values remain sanitized; Wi-Fi still depends on the matching root patch, and unsupported hardware remains subject to the limitations documented above.
 
 ## Validation
 

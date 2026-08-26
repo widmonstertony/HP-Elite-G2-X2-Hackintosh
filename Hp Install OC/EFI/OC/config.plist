@@ -80,9 +80,9 @@
 			</dict>
 			<dict>
 				<key>Comment</key>
-				<string></string>
+				<string>Disabled: RP01 Thunderbolt hot-plug triggers IOThunderboltFamily panic on cable removal</string>
 				<key>Enabled</key>
-				<true/>
+				<false/>
 				<key>Path</key>
 				<string>SSDT-TBHP.aml</string>
 			</dict>
@@ -999,25 +999,17 @@
 				<key>Enabled</key>
 				<true/>
 				<key>Find</key>
-				<data>
-				AFAAbABhAHQAZgBvAHIAbQBTAHUAcABwAG8AcgB0AC4A
-				cABsAGkAcwB0
-				</data>
+				<data>AFAAbABhAHQAZgBvAHIAbQBTAHUAcABwAG8AcgB0AC4AcABsAGkAcwB0</data>
 				<key>Identifier</key>
 				<string>Apple</string>
 				<key>Limit</key>
 				<integer>0</integer>
 				<key>Mask</key>
-				<data>
-				</data>
+				<data></data>
 				<key>Replace</key>
-				<data>
-				AC4ALgAuAC4ALgAuAC4ALgAuAC4ALgAuAC4ALgAuAC4A
-				LgAuAC4ALgAu
-				</data>
+				<data>AC4ALgAuAC4ALgAuAC4ALgAuAC4ALgAuAC4ALgAuAC4ALgAuAC4ALgAu</data>
 				<key>ReplaceMask</key>
-				<data>
-				</data>
+				<data></data>
 				<key>Skip</key>
 				<integer>0</integer>
 			</dict>
@@ -1026,10 +1018,10 @@
 		<dict>
 			<key>AllowRelocationBlock</key>
 			<false/>
-			<key>AvoidRuntimeDefrag</key>
-			<true/>
 			<key>ClearTaskSwitchBit</key>
 			<false/>
+			<key>AvoidRuntimeDefrag</key>
+			<true/>
 			<key>DevirtualiseMmio</key>
 			<false/>
 			<key>DisableSingleUser</key>
@@ -1038,11 +1030,11 @@
 			<false/>
 			<key>DiscardHibernateMap</key>
 			<false/>
+			<key>FixupAppleEfiImages</key>
+			<true/>
 			<key>EnableSafeModeSlide</key>
 			<true/>
 			<key>EnableWriteUnprotector</key>
-			<true/>
-			<key>FixupAppleEfiImages</key>
 			<true/>
 			<key>ForceBooterSignature</key>
 			<false/>
@@ -1074,6 +1066,17 @@
 	<dict>
 		<key>Add</key>
 		<dict>
+			<key>PciRoot(0x0)/Pci(0x1C,0x0)</key>
+			<dict>
+				<key>class-code</key>
+				<data>
+				/////w==
+				</data>
+				<key>device-id</key>
+				<data>
+				//8AAA==
+				</data>
+			</dict>
 			<key>PciRoot(0x0)/Pci(0x1C,0x0)/Pci(0x0,0x0)/Pci(0x0,0x0)/Pci(0x0,0x0)</key>
 			<dict>
 				<key>class-code</key>
@@ -1911,26 +1914,21 @@
 				<key>Enabled</key>
 				<true/>
 				<key>Find</key>
-				<data>
-				</data>
+				<data></data>
 				<key>Identifier</key>
 				<string>kernel</string>
 				<key>Limit</key>
 				<integer>0</integer>
 				<key>Mask</key>
-				<data>
-				</data>
+				<data></data>
 				<key>MaxKernel</key>
 				<string></string>
 				<key>MinKernel</key>
 				<string>25.0.0</string>
 				<key>Replace</key>
-				<data>
-				uAAAAADD
-				</data>
+				<data>uAAAAADD</data>
 				<key>ReplaceMask</key>
-				<data>
-				</data>
+				<data></data>
 				<key>Skip</key>
 				<integer>0</integer>
 			</dict>
@@ -1946,28 +1944,21 @@
 				<key>Enabled</key>
 				<true/>
 				<key>Find</key>
-				<data>
-				AQAAAOgAAAAAhcB1
-				</data>
+				<data>AQAAAOgAAAAAhcB1</data>
 				<key>Identifier</key>
 				<string>com.apple.driver.AppleMobileFileIntegrity</string>
 				<key>Limit</key>
 				<integer>0</integer>
 				<key>Mask</key>
-				<data>
-				//////8AAAAA////
-				</data>
+				<data>//////8AAAAA////</data>
 				<key>MaxKernel</key>
 				<string></string>
 				<key>MinKernel</key>
 				<string>25.0.0</string>
 				<key>Replace</key>
-				<data>
-				AQAAALgBAAAAhcB1
-				</data>
+				<data>AQAAALgBAAAAhcB1</data>
 				<key>ReplaceMask</key>
-				<data>
-				</data>
+				<data></data>
 				<key>Skip</key>
 				<integer>0</integer>
 			</dict>
@@ -2041,10 +2032,10 @@
 		<dict>
 			<key>ConsoleAttributes</key>
 			<integer>0</integer>
-			<key>HibernateMode</key>
-			<string>None</string>
 			<key>HibernateSkipsPicker</key>
 			<false/>
+			<key>HibernateMode</key>
+			<string>None</string>
 			<key>HideAuxiliary</key>
 			<true/>
 			<key>InstanceIdentifier</key>
@@ -2247,16 +2238,12 @@
 				<data>
 				Rg==
 				</data>
-				<key>bluetoothExternalDongleFailed</key>
-				<data>
-				AA==
-				</data>
-				<key>bluetoothInternalControllerInfo</key>
-				<data>
-				AAAAAAAAAAAAAAAAAAA=
-				</data>
 				<key>boot-args</key>
 				<string>darkwake=0 lilucpu=9 -no_compat_check -amfipassbeta ipc_control_port_options=0</string>
+				<key>bluetoothExternalDongleFailed</key>
+				<data>AA==</data>
+				<key>bluetoothInternalControllerInfo</key>
+				<data>AAAAAAAAAAAAAAAAAAA=</data>
 				<key>csr-active-config</key>
 				<data>
 				AwgAAA==
@@ -2394,18 +2381,18 @@
 			<integer>50</integer>
 			<key>KeySubsequentDelay</key>
 			<integer>5</integer>
-			<key>PointerDwellClickTimeout</key>
-			<integer>0</integer>
-			<key>PointerDwellDoubleClickTimeout</key>
-			<integer>0</integer>
-			<key>PointerDwellRadius</key>
-			<integer>0</integer>
 			<key>PointerPollMask</key>
 			<integer>-1</integer>
 			<key>PointerPollMax</key>
 			<integer>80</integer>
 			<key>PointerPollMin</key>
 			<integer>10</integer>
+			<key>PointerDwellClickTimeout</key>
+			<integer>0</integer>
+			<key>PointerDwellDoubleClickTimeout</key>
+			<integer>0</integer>
+			<key>PointerDwellRadius</key>
+			<integer>0</integer>
 			<key>PointerSpeedDiv</key>
 			<integer>1</integer>
 			<key>PointerSpeedMul</key>
@@ -2612,10 +2599,10 @@
 			<false/>
 			<key>RequestBootVarRouting</key>
 			<true/>
-			<key>ResizeGpuBars</key>
-			<integer>-1</integer>
 			<key>ResizeUsePciRbIo</key>
 			<false/>
+			<key>ResizeGpuBars</key>
+			<integer>-1</integer>
 			<key>ShimRetainProtocol</key>
 			<false/>
 			<key>TscSyncTimeout</key>
@@ -2623,6 +2610,8 @@
 			<key>UnblockFsConnect</key>
 			<true/>
 		</dict>
+		<key>Unload</key>
+		<array/>
 		<key>ReservedMemory</key>
 		<array>
 			<dict>
@@ -2650,8 +2639,6 @@
 				<string>RuntimeCode</string>
 			</dict>
 		</array>
-		<key>Unload</key>
-		<array/>
 	</dict>
 </dict>
 </plist>

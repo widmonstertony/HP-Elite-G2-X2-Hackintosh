@@ -284,6 +284,8 @@
 					<key>Custom ADB Map</key>
 					<array>
 						<string>;Items must be strings in the form of scanfrom=adbto (in hex)</string>
+						<string>3d=6b;HP Elite x2 F3 to native brightness down</string>
+						<string>3e=71;HP Elite x2 F4 to native brightness up</string>
 					</array>
 					<key>Custom PS2 Map</key>
 					<array>
