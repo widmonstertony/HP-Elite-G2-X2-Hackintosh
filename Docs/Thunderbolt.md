@@ -9,7 +9,7 @@ The HP Elite x2 1012 G2 controller is not stable as a native macOS Thunderbolt c
 - the failure occurs while the machine is running, not during a normal shutdown;
 - the Tahoe failure was reproduced by Thunderbolt hot removal.
 
-The stable EFI therefore keeps `SSDT-TBHP.aml` disabled and hides the boot-visible RP01/NHI PCI paths. Do not interpret the physical USB-C connector as proof that Thunderbolt PCIe tunnelling is active: USB, charging and DisplayPort Alt Mode are separate functions.
+The stable EFI therefore keeps `SSDT-TBHP.aml` disabled, avoids the earlier RP01 parent-device spoof, hides the NHI path, and blocks `com.apple.driver.AppleThunderboltNHI` on supported macOS kernels. Do not interpret the physical USB-C connector as proof that Thunderbolt PCIe tunnelling is active: USB, charging and DisplayPort Alt Mode are separate functions.
 
 The controller identified on this machine is an Intel JHL6540 (`8086:15d9`). The available same-model experimental SSDT advertises a JHL6340 and therefore is not a board-verified drop-in replacement for this machine.
 

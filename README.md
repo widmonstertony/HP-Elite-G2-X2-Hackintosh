@@ -1,6 +1,6 @@
 # HP Elite x2 1012 G2 Hackintosh
 
-OpenCore configuration for the HP Elite x2 1012 G2, maintained for macOS Ventura 13.6 and macOS Tahoe 26.6.2 (25G83). The Tahoe profile below was exported from the EFI System Partition after physical-machine validation on 2026-08-25.
+OpenCore configuration for the HP Elite x2 1012 G2, maintained for macOS Ventura 13.6 and macOS Tahoe 26.6.2 (25G83). The Tahoe profile below was exported from the EFI System Partition after physical-machine validation through 2026-09-27.
 
 ## Hardware
 
@@ -21,7 +21,7 @@ OpenCore configuration for the HP Elite x2 1012 G2, maintained for macOS Ventura
 | AirDrop / AWDL | Tested on Ventura | AWDL active; two-way transfer still needs per-install validation |
 | Bluetooth | Tested | Tested |
 | Internal speakers / volume keys | Tested | Tested |
-| Brightness keys / keyboard reconnect | Tested | Tested with the native F3/F4 map |
+| Brightness keys / keyboard reconnect | Tested | Tested with native F3/F4 mapping and dock-reconnect guard |
 | Sleep / wake / native wake lock | Short test passed after AlpsHID fix | Tested; immediate password lock restored |
 | Shutdown / reboot | Tested | Tested with Tahoe HID termination guards |
 | Thunderbolt PCIe tunnelling | Disabled | Disabled |
@@ -29,7 +29,7 @@ OpenCore configuration for the HP Elite x2 1012 G2, maintained for macOS Ventura
 | Keyboard wake | Power-button wake recommended | Not enabled; VoodooPS2 disables the PS/2 IRQ during sleep |
 | Camera | Not enumerated | Not fixed by this EFI |
 
-Thunderbolt NHI is intentionally hidden in `DeviceProperties` and `SSDT-TBHP.aml` is disabled because `IOThunderboltFamily 9.3.3` caused reproducible page-fault panics on both Ventura and Tahoe. The current injection only applies to devices present during boot, so a true TB3 controller appearing later can still trigger the Apple driver; see [Docs/Thunderbolt.md](Docs/Thunderbolt.md) before connecting or removing a TB3 device.
+Thunderbolt NHI is intentionally blocked, its unstable ACPI hot-plug injection is disabled, and the USB-C connector is handled through mapped XHCI. `IOThunderboltFamily 9.3.3` caused reproducible page-fault panics on both Ventura and Tahoe, so this stable profile deliberately does not provide Thunderbolt PCIe tunnelling. See [Docs/Thunderbolt.md](Docs/Thunderbolt.md) before experimenting with a true TB3 device.
 
 ![Tahoe 26.6.2 validation snapshot](Docs/Images/Tahoe-26.6.2-stable-20260825.png)
 

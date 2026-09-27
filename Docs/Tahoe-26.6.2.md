@@ -11,15 +11,19 @@ Target build: macOS Tahoe 26.6.2 (25G83) using an in-place upgrade from macOS Ve
 - Use `AMFIPass` and the Tahoe-specific AMFI path only on the matching Darwin version.
 - Use AlpsHID 1.2.3 with the touchpad sleep-lifecycle fix.
 - Use the Tahoe termination-guard builds of `VoodooI2CHID` and the embedded `VoodooInput` plugin to avoid shutdown/termination panics while preserving the touchscreen and multi-touch trackpad.
-- Use the HP Elite x2 native F3/F4 map in `VoodooPS2Keyboard` for brightness down/up; no background hot-key agent is required.
-- Disable the Thunderbolt NHI PCI path after a confirmed `IOThunderboltFamily 9.3.3` page-fault panic.
+- Use the HP Elite x2 native F3/F4 map in `VoodooPS2Keyboard`, synthesize missing key-up events, and filter the single phantom brightness-down make code emitted when the detachable keyboard reconnects. No background hot-key agent is required.
+- Use native XCPM instead of the former CPUFriend profile, which biased Tahoe toward power saving and caused severe post-boot sluggishness on this machine.
+- Keep the Intel HD 620 `rps-control` property as the four-byte value `01 00 00 00`; an ASCII representation is not equivalent EFI data.
+- Block `AppleThunderboltNHI` and disable the experimental Thunderbolt ACPI path after a confirmed `IOThunderboltFamily 9.3.3` page-fault panic.
 
-## Validated state — 2026-08-25
+## Validated state — 2026-09-27
 
 - Boot, Intel HD 620 acceleration, internal audio, Wi-Fi, Bluetooth, touchscreen, keyboard, brightness/volume keys, battery reporting and 1–4 finger Alps gestures passed on the physical machine.
 - Sleep/wake passed repeated short tests. Native wake authentication was restored by setting the system screen-lock policy to `immediate`; this is a macOS user policy, not an EFI patch.
 - Shutdown and reboot passed after deploying the Tahoe HID termination guards.
-- The live EFI config SHA-256 before public PlatformInfo sanitization was `e0c8bf99cc3930ff9d9d840362d5b1d9cd77475c8398e5427fcdf7c23ede0efc` and passed OpenCore 1.0.7 `ocvalidate`.
+- The detachable keyboard was removed and reattached without forcing brightness to minimum. The in-driver reconnect guard recorded one activation and filtered three phantom scan-code events; brightness keys continued to work normally.
+- The machine remained responsive after cold boot with CPUFriend disabled and native XCPM active. No recent kernel panic, GPU restart, thermal warning, swap pressure, or sleep/wake driver failure was present in the final diagnostic pass.
+- The live EFI config SHA-256 before public PlatformInfo sanitization is `4f994322d97321feefea4af3711ebfb101880b2514b3e4085139c28a1484adf2` and passed OpenCore 1.0.7 `ocvalidate`. Its corrected `rps-control` representation takes effect on the next boot.
 - True Thunderbolt 3 PCIe tunnelling did not pass. A Tahoe 25G83 hot-unplug event reproduced the same `IOThunderboltFamily 9.3.3` null-page fault previously seen on Ventura.
 
 ## Upgrade order
